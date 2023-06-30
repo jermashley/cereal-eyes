@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  @apply font-sans antialiased;
+}
+
+body {
+  @apply h-full min-h-screen w-full bg-zinc-100 text-zinc-800 dark:bg-zinc-900 dark:text-zinc-200;
+}
+
+#app {
+  @apply h-full min-h-screen w-full;
+}
