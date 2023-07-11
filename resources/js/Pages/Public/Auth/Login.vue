@@ -26,7 +26,6 @@
         </p>
 
         <a
-          :class="block"
           class="mt-12 flex flex-row items-center justify-center space-x-2 rounded-sm border border-zinc-200/75 bg-zinc-100 px-4 py-2 text-sm text-zinc-700 transition-all duration-200 dark:border-zinc-600/75 dark:bg-zinc-700 dark:text-zinc-200 hover:dark:bg-zinc-600"
           href="/auth/redirect/github"
         >
