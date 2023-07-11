@@ -23,17 +23,6 @@ class SocialAuthController extends Controller
     {
         $socialiteUser = Socialite::driver($provider)->user();
 
-        // $emailDomain = substr(strrchr($socialiteUser->getEmail(), '@'), 1);
-
-        // Return to the login if the user's email domain is not in our valid domain list.
-        // if (! in_array($emailDomain, config('socialite.valid_domains'))) {
-        //     return redirect()->route('login')->withErrors([
-        //         'email' => 'You must use a valid Prologue email address to login.',
-        //     ]);
-        // }
-
-        ray($socialiteUser);
-
         $user = User::updateOrCreate([
             'provider_id' => $socialiteUser->id,
         ], [
@@ -46,7 +35,9 @@ class SocialAuthController extends Controller
             'provider_refresh_token' => $socialiteUser->refreshToken,
         ]);
 
-        event(new Registered($user));
+        if ($user->updated_at !== $user->created_at) {
+            event(new Registered($user));
+        }
 
         Auth::login($user);
 
