@@ -7,7 +7,7 @@ import PublicLayout from '@/Layouts/PublicLayout.vue'
 
 createInertiaApp({
   title: (title) => {
-    const appName = import.meta.env?.VITE_APP_NAME ?? `Onboarder`
+    const appName = import.meta.env?.VITE_APP_NAME ?? `Cereal-Eyes`
 
     return `${title} - ${appName}`
   },
