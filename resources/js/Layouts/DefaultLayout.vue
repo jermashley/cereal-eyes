@@ -7,7 +7,7 @@
     <footer class="flex w-full flex-row items-center justify-center px-4 py-6">
       <p class="text-xs font-bold text-zinc-500 opacity-80 dark:text-zinc-600">
         <a
-          href="https://prologuetechnology.com"
+          href="https://jeremiahashley.com"
           class="transition-all duration-200 dark:hover:text-sky-400"
           target="_blank"
           rel="noreferrer"

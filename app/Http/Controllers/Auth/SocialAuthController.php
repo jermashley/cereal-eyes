@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
-use Symfony\Component\HttpFoundation\Response as HttpCodes;
+use Symfony\Component\HttpFoundation\Response as HttpResponses;
 
 class SocialAuthController extends Controller
 {
@@ -49,6 +49,6 @@ class SocialAuthController extends Controller
         Auth::guard()->logout();
         $request->session()->flush();
 
-        return response()->json([], HttpCodes::HTTP_NO_CONTENT);
+        return response()->json([], HttpResponses::HTTP_NO_CONTENT);
     }
 }

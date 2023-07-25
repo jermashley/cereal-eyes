@@ -12,39 +12,38 @@ class UnserializeController extends Controller
     public function decode(Request $request): JsonResponse
     {
         $input = $request->input('serialized');
-        $format = $request->input('format', 'var_dump'); // default to var_dump
+        $format = $request->input('format', 'var_dump');
 
-        // validate the input
+        // Validate the input
         if (! $input) {
             return response()->json(['error' => 'No input provided'], HttpResponses::HTTP_BAD_REQUEST);
         }
 
-        // check if the input is base64_encoded and decode if necessary
+        // Check if the input is base64_encoded and decode if necessary
         if (base64_encode(base64_decode($input, true)) === $input) {
             $input = base64_decode($input);
         }
 
-        // unserialize and return var_dump output
         try {
             $unserialized = unserialize($input);
+
             ob_start();
+            print_r($unserialized);
+            $print_r = ob_get_clean();
 
-            switch ($format) {
-                case 'print_r':
-                    print_r($unserialized);
-                    break;
-                case 'var_export':
-                    var_export($unserialized);
-                    break;
-                case 'var_dump':
-                default:
-                    var_dump($unserialized);
-                    break;
-            }
+            ob_start();
+            var_export($unserialized);
+            $var_export = ob_get_clean();
 
-            $result = ob_get_clean();
+            ob_start();
+            var_dump($unserialized);
+            $var_dump = ob_get_clean();
 
-            return response()->json(['result' => $result], HttpResponses::HTTP_OK);
+            return response()->json([
+                'print_r' => $print_r,
+                'var_export' => $var_export,
+                'var_dump' => $var_dump,
+            ], HttpResponses::HTTP_OK);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Unserialization failed', 'message' => $e->getMessage()], HttpResponses::HTTP_INTERNAL_SERVER_ERROR);
         }
