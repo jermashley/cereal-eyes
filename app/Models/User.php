@@ -13,7 +13,10 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasUuid;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+    use HasUuid;
 
     /**
      * The attributes that are mass assignable.
@@ -50,8 +53,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function serializedData(): HasMany
+    public function decodes(): HasMany
     {
-        return $this->hasMany(Serialized::class);
+        return $this->hasMany(Decode::class);
     }
 }

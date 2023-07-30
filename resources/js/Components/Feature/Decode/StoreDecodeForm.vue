@@ -26,24 +26,24 @@
 <script setup>
 import { ref, watch } from 'vue'
 
-import { useCurrentSerializedResponse } from '@/Composables/Hooks'
-import { useStoreSerializedMutation } from '@/Composables/Mutations/Serialized'
+import { useCurrentDecodeResponse } from '@/Composables/Hooks'
+import { useStoreDecodeMutation } from '@/Composables/Mutations/Decode'
 
-const { setResponse, response } = useCurrentSerializedResponse()
+const { setResponse, response } = useCurrentDecodeResponse()
 
-const storeSerialized = useStoreSerializedMutation({
+const storeDecode = useStoreDecodeMutation({
   config: {
     onSuccess: ({ data }) => {
-      setResponse(data.serialized)
+      setResponse(data.decode)
     },
   },
 })
 
 const serializedInput = ref(``)
 
-const handleSubmit = () => storeSerialized.mutate(serializedInput.value)
+const handleSubmit = () => storeDecode.mutate(serializedInput.value)
 
-watch(storeSerialized.data, () => (serializedInput.value = ``))
+watch(storeDecode.data, () => (serializedInput.value = ``))
 
 watch(response, () => console.log(response.value))
 </script>

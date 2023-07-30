@@ -56,10 +56,6 @@ const debugItems = computed(() => {
       value: props.response.print_r,
     },
     {
-      label: `var_dump`,
-      value: props.response.var_dump,
-    },
-    {
       label: `var_export`,
       value: props.response.var_export,
     },

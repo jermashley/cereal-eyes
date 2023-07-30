@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreSerializedRequest;
-use App\Http\Requests\UpdateSerializedRequest;
-use App\Models\Serialized;
+use App\Http\Requests\StoreDecodeRequest;
+use App\Http\Requests\UpdateDecodeRequest;
+use App\Models\Decode;
 
-class SerializedController extends Controller
+class DecodeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class SerializedController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSerializedRequest $request)
+    public function store(StoreDecodeRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class SerializedController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Serialized $serialized)
+    public function show(Decode $decode)
     {
         //
     }
@@ -43,7 +43,7 @@ class SerializedController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Serialized $serialized)
+    public function edit(Decode $decode)
     {
         //
     }
@@ -51,7 +51,7 @@ class SerializedController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSerializedRequest $request, Serialized $serialized)
+    public function update(UpdateDecodeRequest $request, Decode $decode)
     {
         //
     }
@@ -59,7 +59,7 @@ class SerializedController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Serialized $serialized)
+    public function destroy(Decode $decode)
     {
         //
     }

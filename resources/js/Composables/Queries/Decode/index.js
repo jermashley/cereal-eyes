@@ -1,0 +1,1 @@
+export { useShowDecodeById } from './useShowDecodeById'

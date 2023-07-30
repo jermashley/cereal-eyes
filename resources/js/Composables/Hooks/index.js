@@ -1,1 +1,1 @@
-export { useCurrentSerializedResponse } from './useCurrentSerializedResponse'
+export { useCurrentDecodeResponse } from './useCurrentDecodeResponse'

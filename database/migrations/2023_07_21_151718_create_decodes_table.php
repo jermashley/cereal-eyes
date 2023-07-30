@@ -5,18 +5,19 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('serializeds', function (Blueprint $table) {
+        Schema::create('decodes', function (Blueprint $table) {
             $table->id();
             $table->uuid();
-            $table->text('data');
             $table->foreignIdFor(User::class);
+            $table->text('original')->nullable();
+            $table->text('serialized')->nullable();
+            $table->text('base64_encoded')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('serializeds');
+        Schema::dropIfExists('decodes');
     }
 };

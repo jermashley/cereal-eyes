@@ -1,10 +1,10 @@
 <template>
-  <StoreSerializedForm class="mt-12" />
+  <StoreDecodeForm class="mt-12" />
 
-  <ShowSerializedResponse class="mt-12" />
+  <ShowDecodeResponse class="mt-12" />
 </template>
 
 <script setup>
-import ShowSerializedResponse from '@/Components/Feature/Serialized/ShowSerializedResponse.vue'
-import StoreSerializedForm from '@/Components/Feature/Serialized/StoreSerializedForm.vue'
+import ShowDecodeResponse from '@/Components/Feature/Decode/ShowDecodeResponse.vue'
+import StoreDecodeForm from '@/Components/Feature/Decode/StoreDecodeForm.vue'
 </script>

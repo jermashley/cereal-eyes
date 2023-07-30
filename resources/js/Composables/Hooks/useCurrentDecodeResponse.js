@@ -2,7 +2,7 @@ import { ref } from 'vue'
 
 const response = ref(null)
 
-export const useCurrentSerializedResponse = () => {
+export const useCurrentDecodeResponse = () => {
   const clearResponse = () => {
     response.value = null
   }

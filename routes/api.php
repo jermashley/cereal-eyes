@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\SerializedController;
-use App\Http\Controllers\Api\UnserializeController;
+use App\Http\Controllers\Api\DecodeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,8 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth:sanctum'])->as('api.')->group(function () {
-    Route::post('/decode', [UnserializeController::class, 'decode'])->name('unserialize');
-
-    Route::apiResource('serialized', SerializedController::class);
-    Route::delete('/serialized/force-destroy-all', [SerializedController::class, 'forceDestroyAll'])->name('serialized.force-destroy-all');
+    Route::apiResource('decode', DecodeController::class);
+    Route::delete('/decode/force-destroy-all', [DecodeController::class, 'forceDestroyAll'])->name('decode.force-destroy-all');
 });

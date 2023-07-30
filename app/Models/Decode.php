@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Serialized extends Model
+class Decode extends Model
 {
     use HasFactory;
     use HasUuid;
@@ -19,7 +19,7 @@ class Serialized extends Model
     {
         parent::boot();
 
-        static::saving(function (Serialized $model) {
+        static::saving(function (Decode $model) {
             if (base64_decode($model->data, true) !== false) {
                 $decoded = base64_decode($model->data);
                 ray($decoded);
@@ -42,7 +42,6 @@ class Serialized extends Model
     protected $appends = [
         'print_r',
         'var_export',
-        'var_dump',
     ];
 
     public function user(): BelongsTo
@@ -60,28 +59,17 @@ class Serialized extends Model
 
     public function getPrintRAttribute(): string
     {
-        ob_start();
-        print_r($this->decoded_data);
-        $print_r = ob_get_clean();
+        $print_r = print_r($this->decoded_data, true);
 
         return $print_r;
     }
 
     public function getVarExportAttribute(): string
     {
-        ob_start();
-        var_export($this->decoded_data);
-        $var_export = ob_get_clean();
+        $var_export = var_export($this->decoded_data, true);
+
+        ray($var_export);
 
         return $var_export;
-    }
-
-    public function getVarDumpAttribute(): string
-    {
-        ob_start();
-        var_dump($this->decoded_data);
-        $var_dump = ob_get_clean();
-
-        return $var_dump;
     }
 }
