@@ -12,6 +12,7 @@
         "laravel/sanctum": "^3.2",
         "laravel/socialite": "^5.6",
         "laravel/tinker": "^2.8",
+        "laravel/vapor-core": "^2.32",
         "spatie/laravel-ray": "^1.32"
     },
     "require-dev": {

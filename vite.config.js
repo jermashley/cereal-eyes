@@ -1,34 +1,51 @@
 import basicSsl from '@vitejs/plugin-basic-ssl'
-import vue from '@vitejs/plugin-vue'
+import react from '@vitejs/plugin-react'
 import laravel from 'laravel-vite-plugin'
 import path from 'path'
 import { defineConfig } from 'vite'
-import eslintPlugin from 'vite-plugin-eslint'
 
 export default defineConfig({
   server: {
     https: true,
+    // host: `local.kellby.me`,
   },
   plugins: [
-    eslintPlugin(),
     basicSsl(),
     laravel({
-      input: [`resources/css/app.css`, `resources/js/app.js`],
+      input: [`resources/css/app.css`, `resources/js/app.jsx`],
       refresh: true,
     }),
-    vue({
-      template: {
-        transformAssetUrls: {
-          base: null,
-          includeAbsolute: false,
-        },
+    react({
+      babel: {
+        plugins: [
+          `@babel/plugin-syntax-dynamic-import`,
+          // `babel-plugin-styled-components`,
+        ],
       },
     }),
   ],
   resolve: {
     alias: {
       'tailwind.config.js': path.resolve(__dirname, `tailwind.config.js`),
-      '@': `/resources/js`,
+      '@/Components': `/resources/js/Components`,
+      '@/Contexts': `/resources/js/Contexts`,
+      '@/Layouts': `/resources/js/Layouts`,
+      '@/Pages': `/resources/js/Pages`,
+      '@/Lib': `/resources/js/Lib`,
+      '@/Styles': `/resources/js/Styles`,
+      '@/Utils': `/resources/js/Utils`,
+      '@/Hooks': `/resources/js/Composables/Hooks`,
+      '@/Mutations': `/resources/js/Composables/Mutations`,
+      '@/Queries': `/resources/js/Composables/Queries`,
+    },
+  },
+  optimizeDeps: {
+    include: `tailwind.config.js`,
+  },
+  build: {
+    commonjsOptions: {
+      include: [`tailwind.config.js`, `node_modules/**`],
+      // transformMixedEsModules: true,
     },
   },
 })

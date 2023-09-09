@@ -4,7 +4,9 @@ import axios from 'axios'
 const storeDecode = async (decode) => {
   const data = await axios.post(
     `/api/decode`,
-    { data: decode },
+    {
+      raw: decode,
+    },
     {
       headers: {
         Accept: `application/json`,

@@ -31,7 +31,8 @@ class DecodeController extends Controller
     {
         try {
             $decode = Decode::create([
-                'data' => $request->input('data'),
+                'raw' => $request->input('raw'),
+                'raw_type' => $request->input('raw_type'),
             ]);
         } catch (ModelNotFoundException $e) {
             return response()->json([
@@ -39,7 +40,9 @@ class DecodeController extends Controller
             ], HttpResponses::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return response()->json(['decode' => $decode], HttpResponses::HTTP_CREATED);
+        return response()->json([
+            'decode' => $decode
+        ], HttpResponses::HTTP_CREATED);
     }
 
     /**

@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Traits\HasUuid;
 use Auth;
+use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,12 +19,12 @@ class Decode extends Model
     {
         parent::boot();
 
-        static::saving(function (Decode $model) {
-            if (base64_decode($model->data, true) !== false) {
-                $decoded = base64_decode($model->data);
+        static::saving(function (Decode $decode) {
+            if (base64_decode($decode->data, true) !== false) {
+                $decoded = base64_decode($decode->data);
                 ray($decoded);
                 // If the property is base64_encoded, we decode it
-                $model->data = base64_decode($model->data);
+                $decode->data = base64_decode($decode->data);
             }
         });
 
@@ -35,41 +35,12 @@ class Decode extends Model
     }
 
     protected $fillable = [
-        'data',
+        'raw',
         'user_id'
-    ];
-
-    protected $appends = [
-        'print_r',
-        'var_export',
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function getDecodedDataAttribute()
-    {
-        // $serialized = base64_decode($this->data);
-        $unserialized = unserialize($this->data);
-
-        return $unserialized;
-    }
-
-    public function getPrintRAttribute(): string
-    {
-        $print_r = print_r($this->decoded_data, true);
-
-        return $print_r;
-    }
-
-    public function getVarExportAttribute(): string
-    {
-        $var_export = var_export($this->decoded_data, true);
-
-        ray($var_export);
-
-        return $var_export;
     }
 }

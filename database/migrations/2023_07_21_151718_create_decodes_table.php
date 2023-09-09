@@ -15,7 +15,9 @@ return new class () extends Migration {
             $table->id();
             $table->uuid();
             $table->foreignIdFor(User::class);
-            $table->text('original')->nullable();
+            $table->text('raw')->nullable();
+            $table->text('raw_type')->nullable();
+            $table->text('decoded')->nullable();
             $table->text('serialized')->nullable();
             $table->text('base64_encoded')->nullable();
             $table->timestamps();

@@ -26,12 +26,9 @@
           v-for="debugItem in debugItems"
           :key="`${debugItem.label}_content`"
         >
-          <code>
-            <pre
-              :innerText="debugItem.value"
-              class="whitespace-pre font-mono text-sm font-bold leading-loose tracking-wide"
-            />
-          </code>
+          <pre>
+            <code class="whitespace-pre font-mono text-sm font-bold leading-loose tracking-wide" v-text="debugItem.value" />
+          </pre>
         </TabPanel>
       </TabPanels>
     </TabGroup>
