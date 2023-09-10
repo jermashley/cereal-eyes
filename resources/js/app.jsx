@@ -2,17 +2,17 @@ import { createInertiaApp } from '@inertiajs/react'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import { AppContextProvider } from '@/Contexts/AppContextProvider'
-import { AuthenticatedLayout } from '@/Layouts/AuthenticatedLayout'
-import { PublicLayout } from '@/Layouts/PublicLayout'
+import { AppContextProvider } from '@/contexts/AppContextProvider'
+import { AuthenticatedLayout } from '@/layouts/AuthenticatedLayout'
+import { PublicLayout } from '@/layouts/PublicLayout'
 
 createInertiaApp({
   resolve: (name) => {
-    const pages = import.meta.glob(`./Pages/**/*.jsx`, { eager: true })
+    const pages = import.meta.glob(`./pages/**/*.jsx`, { eager: true })
 
-    let page = pages[`./Pages/${name}.jsx`]
+    let page = pages[`./pages/${name}.jsx`]
 
-    page.default.layout = name.startsWith(`Public/`)
+    page.default.layout = name.startsWith(`public/`)
       ? (page) => (
           <AppContextProvider>
             <PublicLayout>{page}</PublicLayout>

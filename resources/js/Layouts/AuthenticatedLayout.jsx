@@ -1,4 +1,4 @@
-import { Navbar } from '@/Components/UI/Navigation'
+import { Navbar } from '@/components/layout/navigation'
 
 import { DefaultLayout } from './DefaultLayout'
 

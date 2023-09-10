@@ -24,11 +24,11 @@ Route::get('/', function () {
 });
 
 Route::get('/login', function () {
-    return Inertia::render('Public/Auth/Login');
+    return Inertia::render('public/auth/login');
 })->middleware('guest')->name('login');
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Home/Index');
+    return Inertia::render('home/index');
 })->middleware('auth')->name('dashboard');
 
 Route::prefix('/auth')->as('auth.')->group(function () {

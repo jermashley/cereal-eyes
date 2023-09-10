@@ -2,16 +2,15 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/Components": ["/resources/js/Components"],
-      "@/Contexts": ["/resources/js/Contexts"],
-      "@/Layouts": ["/resources/js/Layouts"],
-      "@/Pages": ["/resources/js/Pages"],
-      "@/Lib": ["/resources/js/Lib"],
-      "@/Styles": ["/resources/js/Styles"],
-      "@/Utils": ["/resources/js/Utils"],
-      "@/Hooks": ["/resources/js/Composables/Hooks"],
-      "@/Mutations": ["/resources/js/Composables/Mutations"],
-      "@/Queries": ["/resources/js/Composables/Queries"]
+      "@/components": ["resources/js/components"],
+      "@/contexts": ["resources/js/contexts"],
+      "@/layouts": ["resources/js/layouts"],
+      "@/pages": ["resources/js/pages"],
+      "@/lib": ["resources/js/lib"],
+      "@/styles": ["resources/js/styles"],
+      "@/hooks": ["resources/js/composables/hooks"],
+      "@/mutations": ["resources/js/composables/mutations"],
+      "@/queries": ["resources/js/composables/queries"]
     }
   },
   "exclude": ["node_modules", "public"]

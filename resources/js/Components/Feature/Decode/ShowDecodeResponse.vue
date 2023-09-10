@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import ResponseTabView from '@/Components/Feature/Decode/ResponseTabView.vue'
+import ResponseTabView from '@/components/Feature/Decode/ResponseTabView.vue'
 import { useCurrentDecodeResponse } from '@/Composables/Hooks'
 
 const currentDecodeResponse = useCurrentDecodeResponse()

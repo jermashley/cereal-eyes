@@ -1,5 +1,5 @@
 const HomeIndexPage = () => {
-  return <>Home Authed</>
+  return <>Hello</>
 }
 
 export default HomeIndexPage

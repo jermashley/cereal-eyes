@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-import { ComposeComponents } from '@/Components/ComposeComponents'
+import { ComposeComponents } from '@/components/ComposeComponents'
 
 const queryClient = new QueryClient()
 
