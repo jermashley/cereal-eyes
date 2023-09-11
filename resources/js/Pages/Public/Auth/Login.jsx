@@ -26,7 +26,7 @@ const LoginPage = () => {
     <div className="grid h-full w-full flex-grow grid-cols-1 md:grid-cols-2">
       <section className="relative">
         <img
-          className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover opacity-25 contrast-125 grayscale"
+          className="absolute bottom-0 left-0 right-0 top-0 h-full w-full object-cover opacity-50 bg-blend-overlay contrast-125 grayscale"
           src="https://images.unsplash.com/photo-1684167932618-7521c17a8857?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3024&q=80"
           alt=""
         />
@@ -44,7 +44,7 @@ const LoginPage = () => {
           leaveFrom="opacity-100 scale-100"
           leaveTo="opacity-80 scale-90"
         >
-          <Card className="w-full max-w-md">
+          <Card className="w-full max-w-md shadow-xl">
             <CardHeader>
               <CardTitle>{appName}</CardTitle>
 

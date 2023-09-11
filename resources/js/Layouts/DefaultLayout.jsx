@@ -2,7 +2,7 @@ import { Copyright } from 'lucide-react'
 
 export const DefaultLayout = ({ children }) => {
   return (
-    <div className="flex h-full min-h-screen w-full flex-col items-center justify-start">
+    <div className="flex h-full min-h-screen w-full flex-col items-center justify-start bg-zinc-50">
       {children}
 
       <footer className="flex w-full flex-row items-center justify-center px-4 py-6">

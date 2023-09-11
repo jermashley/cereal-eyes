@@ -15,7 +15,7 @@ export const Navbar = () => {
   ]
 
   return (
-    <nav className="sticky top-0 z-10 w-full border-b border-b-zinc-200/50 bg-zinc-100/75 backdrop-blur-md backdrop-brightness-125 backdrop-saturate-150 dark:border-b-zinc-700/50 dark:bg-zinc-800/75">
+    <nav className="sticky top-0 z-10 w-full border-b border-b-zinc-200/50 bg-zinc-100 backdrop-blur-md backdrop-brightness-125 backdrop-saturate-150 dark:border-b-zinc-700/50 dark:bg-zinc-800/75">
       <div className="mx-auto flex w-full max-w-2xl flex-row items-center justify-start px-4 py-4 md:px-0">
         <a href="/" className="text-base font-bold">
           {appName}
