@@ -42,6 +42,7 @@ services:
             FONTAWESOME_TOKEN: '${FONTAWESOME_TOKEN}'
         volumes:
             - '.:/var/www/html'
+            - '~/.ssh:/home/sail/.ssh'
         networks:
             - sail
         depends_on:

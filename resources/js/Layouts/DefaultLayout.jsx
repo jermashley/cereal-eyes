@@ -1,5 +1,4 @@
-import { faCopyright } from '@fortawesome/pro-regular-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Copyright } from 'lucide-react'
 
 export const DefaultLayout = ({ children }) => {
   return (
@@ -17,11 +16,9 @@ export const DefaultLayout = ({ children }) => {
             Jeremiah Ashley
           </a>
 
-          {` `}
+          <Copyright className="mx-1 inline" size={14} />
 
-          <FontAwesomeIcon icon={faCopyright} className="text-xs" fixedWidth />
-
-          {new Date().getFullYear()}
+          <span>{new Date().getFullYear()}</span>
         </p>
       </footer>
     </div>
