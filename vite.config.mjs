@@ -8,20 +8,25 @@ import { defineConfig } from 'vite'
 const user = `jermashley`
 const host = `cereal-eyes.test`
 
+const https =
+  process.env.APP_ENV === `local`
+    ? {
+        key: fs.readFileSync(
+          `/Users/${user}/Library/Application Support/Herd/config/valet/Certificates/${host}.key`,
+        ),
+        cert: fs.readFileSync(
+          `/Users/${user}/Library/Application Support/Herd/config/valet/Certificates/${host}.crt`,
+        ),
+      }
+    : null
+
 export default defineConfig({
   server: {
     host,
     hmr: {
       host,
     },
-    https: {
-      key: fs.readFileSync(
-        `/Users/${user}/Library/Application Support/Herd/config/valet/Certificates/${host}.key`,
-      ),
-      cert: fs.readFileSync(
-        `/Users/${user}/Library/Application Support/Herd/config/valet/Certificates/${host}.crt`,
-      ),
-    },
+    https: https,
   },
   plugins: [
     laravel({
