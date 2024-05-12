@@ -7,9 +7,11 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy'
 
 const appName = import.meta.env.VITE_APP_NAME || `Cereal Eyes`
 
-posthog.init(`phc_5xZgAN1Xse3EySw6p5hci2IyKvV3jWb0nfeSqNnrybz`, {
-  api_host: `https://us.i.posthog.com`,
-})
+if (import.meta.env.APP_ENV === `production`) {
+  posthog.init(`phc_5xZgAN1Xse3EySw6p5hci2IyKvV3jWb0nfeSqNnrybz`, {
+    api_host: `https://us.i.posthog.com`,
+  })
+}
 
 createInertiaApp({
   title: (title) => `${title} - ${appName}`,
