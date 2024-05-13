@@ -83,9 +83,8 @@ const submit = async () => {
         <code>
           <pre
             class="whitespace-break-spaces break-all font-mono text-xs font-medium leading-loose"
-          >
-            {{ responseData?.print_r ?? `No print_r` }}
-          </pre>
+            v-html="responseData?.print_r ?? `No print_r`"
+          />
         </code>
       </TabsContent>
 
@@ -96,9 +95,8 @@ const submit = async () => {
         <code>
           <pre
             class="whitespace-break-spaces break-all font-mono text-xs font-medium leading-loose"
-          >
-            {{ responseData?.var_export ?? `No var_export` }}
-          </pre>
+            v-html="responseData?.var_export ?? `No var_export`"
+          />
         </code>
       </TabsContent>
 
@@ -106,9 +104,8 @@ const submit = async () => {
         <code>
           <pre
             class="whitespace-break-spaces break-all font-mono text-xs font-medium leading-loose"
-          >
-            {{ responseData?.json ?? `No json` }}
-          </pre>
+            v-html="responseData?.json ?? `No json`"
+          />
         </code>
       </TabsContent>
 
@@ -119,9 +116,8 @@ const submit = async () => {
         <code>
           <pre
             class="whitespace-break-spaces break-all font-mono text-xs font-medium leading-loose"
-          >
-            {{ responseData?.base64_decode ?? `No base64_decode` }}
-          </pre>
+            v-html="responseData?.base64_decode ?? `No base64_decode`"
+          />
         </code>
       </TabsContent>
     </Tabs>
