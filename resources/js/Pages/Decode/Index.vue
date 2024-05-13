@@ -45,7 +45,7 @@ const submit = async () => {
       <TabsList class="flex w-full flex-row">
         <TabsTrigger
           :disabled="!responseData?.print_r"
-          class="bold w-full font-mono"
+          class="w-full font-mono font-bold"
           value="print_r"
         >
           print_r
@@ -53,7 +53,7 @@ const submit = async () => {
 
         <TabsTrigger
           :disabled="!responseData?.var_export"
-          class="bold w-full font-mono"
+          class="w-full font-mono font-bold"
           value="var_export"
         >
           var_export
@@ -61,7 +61,7 @@ const submit = async () => {
 
         <TabsTrigger
           :disabled="!responseData?.json"
-          class="bold w-full font-mono"
+          class="w-full font-mono font-bold"
           value="json"
         >
           json
@@ -69,7 +69,7 @@ const submit = async () => {
 
         <TabsTrigger
           :disabled="!responseData?.base64_decode"
-          class="bold w-full font-mono"
+          class="w-full font-mono font-bold"
           value="base64_decode"
         >
           base64_decode
