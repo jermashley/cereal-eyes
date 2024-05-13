@@ -1,6 +1,7 @@
 <script setup>
 import { usePage } from '@inertiajs/vue3'
 
+import ThemeToggle from '@/Components/feature/theme/ThemeToggle.vue'
 import { Button } from '@/Components/ui/button'
 import { useLogout } from '@/Composables/Hooks/Auth'
 
@@ -18,7 +19,9 @@ const { logout } = useLogout()
         Cereal Eyes
       </p>
 
-      <div>
+      <div class="flex flex-row items-center justify-end space-x-2">
+        <ThemeToggle />
+
         <Button v-if="user" size="sm" @click="logout">Logout</Button>
       </div>
     </nav>
