@@ -8,6 +8,8 @@ export const useSystemTheme = () => {
 
   const body = document.body
 
+  body.classList.toggle(`dark`, theme.value === `dark`)
+
   const setTheme = (themeValue) => {
     theme.value = themeValue
 
