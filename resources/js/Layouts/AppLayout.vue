@@ -1,22 +1,12 @@
 <script setup>
-import { router, usePage } from '@inertiajs/vue3'
-
-import AuthGithubButton from '@/Components/feature/auth/AuthGithubButton.vue'
-import { Button } from '@/Components/ui/button'
-
-const user = usePage().props.auth.user
-
-const logout = () => router.post(route(`oauth.logout`))
+import Navbar from '@/Components/layout/navigation/Navbar.vue'
 </script>
 
 <template>
-  <div class="mx-auto flex max-w-3xl flex-col">
-    <nav class="flex flex-row items-center justify-end">
-      <Button v-if="user" size="sm" @click="logout">Logout</Button>
-      <AuthGithubButton v-else size="sm" />
-    </nav>
+  <div class="flex w-full flex-col space-y-4">
+    <Navbar />
 
-    <div class="grow">
+    <div class="mx-auto w-full max-w-3xl grow">
       <slot></slot>
     </div>
   </div>
