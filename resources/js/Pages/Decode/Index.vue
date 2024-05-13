@@ -102,10 +102,7 @@ const submit = async () => {
         </code>
       </TabsContent>
 
-      <TabsContent
-        class="rounded-md border border-zinc-100 bg-zinc-50/75 px-4 py-2"
-        value="json"
-      >
+      <TabsContent value="json">
         <code>
           <pre
             class="whitespace-break-spaces break-all font-mono text-xs font-medium leading-loose"
@@ -116,7 +113,7 @@ const submit = async () => {
       </TabsContent>
 
       <TabsContent
-        class="rounded-md border border-zinc-100 bg-zinc-50/75 px-4 py-2"
+        class="rounded-md border border-zinc-100 bg-zinc-50/75 px-4 py-2 dark:border-zinc-900 dark:bg-zinc-900/75"
         value="base64_decode"
       >
         <code>
