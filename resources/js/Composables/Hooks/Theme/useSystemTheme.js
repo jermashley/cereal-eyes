@@ -9,7 +9,6 @@ export const useSystemTheme = () => {
   const body = document.body
 
   const setTheme = (themeValue) => {
-    console.log(themeValue)
     theme.value = themeValue
 
     body.classList.toggle(`dark`)
