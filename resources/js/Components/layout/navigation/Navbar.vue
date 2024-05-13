@@ -1,7 +1,6 @@
 <script setup>
 import { usePage } from '@inertiajs/vue3'
 
-import AuthGithubButton from '@/Components/feature/auth/AuthGithubButton.vue'
 import { Button } from '@/Components/ui/button'
 import { useLogout } from '@/Composables/Hooks/Auth'
 
@@ -19,7 +18,6 @@ const { logout } = useLogout()
 
       <div>
         <Button v-if="user" size="sm" @click="logout">Logout</Button>
-        <AuthGithubButton v-else size="sm" />
       </div>
     </nav>
   </header>
