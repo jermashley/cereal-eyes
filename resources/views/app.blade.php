@@ -24,7 +24,7 @@
 
     <!-- Meta Tags Generated with https://metatags.io -->
 
-    <title inertia>{{ config('app.name', '{{ config('app.name', 'Cereal Eyes') }}') }}</title>
+    <title inertia>{{ config('app.name', 'Cereal Eyes') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
