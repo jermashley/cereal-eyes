@@ -14,7 +14,9 @@ const { logout } = useLogout()
     <nav
       class="mx-auto flex w-full max-w-3xl flex-row items-center justify-between"
     >
-      <p class="text-sm font-bold text-slate-700">Cereal Eyes</p>
+      <p class="text-lg font-extrabold text-zinc-700 dark:text-zinc-200">
+        Cereal Eyes
+      </p>
 
       <div>
         <Button v-if="user" size="sm" @click="logout">Logout</Button>
