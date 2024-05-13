@@ -24,7 +24,7 @@ class OAuthController extends Controller
         $user = User::updateOrCreate([
             $provider.'_id' => $socialiteUser->id,
         ], [
-            'name' => $socialiteUser->name,
+            'name' => $socialiteUser->name ?? $socialiteUser->email,
             'email' => $socialiteUser->email,
             'password' => bcrypt(Str::random(32)),
             $provider.'_id' => $socialiteUser->id,
