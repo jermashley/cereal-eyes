@@ -13,7 +13,9 @@ import AppLayout from '@/Layouts/AppLayout.vue'
   <TooltipProvider>
     <AppLayout>
       <div class="flex flex-col items-center justify-center space-y-12 py-24">
-        <h1 class="text-3xl font-semibold text-zinc-800 dark:text-zinc-200">
+        <h1
+          class="text-center text-3xl font-semibold text-zinc-800 dark:text-zinc-200"
+        >
           Decode
           <Tooltip>
             <TooltipTrigger class="line-through decoration-rose-600 opacity-50">
