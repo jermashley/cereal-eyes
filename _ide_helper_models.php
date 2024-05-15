@@ -18,6 +18,7 @@ namespace App\Models{
  * @property int $id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User|null $user
  * @method static \Database\Factories\DecodeFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Decode newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Decode newQuery()
@@ -47,6 +48,8 @@ namespace App\Models{
  * @property string|null $github_refresh_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Decode> $decodes
+ * @property-read int|null $decodes_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])

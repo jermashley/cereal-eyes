@@ -6,6 +6,7 @@ use App\Helpers\DataTransformation\Codecs\Base64;
 use App\Helpers\DataTransformation\Serializers\Serialized;
 use App\Http\Controllers\Controller;
 use App\Models\Decode;
+use Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,12 +60,18 @@ class DecodeController extends Controller
 
         $jsonResults = $unserializedData ? json_encode($unserializedData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) : null;
 
+        if ($jsonResults) {
+            Decode::create([
+                'user_id' => Auth::id(),
+                'data' => json_encode($jsonResults, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+            ]);
+        }
+
         // Prepare the response array
         $response = [
             'print_r' => $printRResult,
             'var_export' => $varExportResult,
             'json' => $jsonResults,
-            'base64_decode' => $base64Decode,
         ];
 
         return response()->json($response, Response::HTTP_OK);

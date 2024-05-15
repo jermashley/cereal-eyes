@@ -18,7 +18,7 @@ import AppLayout from '@/Layouts/AppLayout.vue'
         >
           Decode
           <Tooltip>
-            <TooltipTrigger class="line-through decoration-rose-600 opacity-50">
+            <TooltipTrigger class="line-through decoration-rose-600">
               and encode
             </TooltipTrigger>
 

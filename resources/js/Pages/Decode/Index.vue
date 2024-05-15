@@ -67,13 +67,13 @@ const submit = async () => {
           json
         </TabsTrigger>
 
-        <TabsTrigger
+        <!-- <TabsTrigger
           :disabled="!responseData?.base64_decode"
           class="w-full font-mono font-bold"
           value="base64_decode"
         >
           base64_decode
-        </TabsTrigger>
+        </TabsTrigger> -->
       </TabsList>
 
       <TabsContent
@@ -100,7 +100,10 @@ const submit = async () => {
         </code>
       </TabsContent>
 
-      <TabsContent value="json">
+      <TabsContent
+        class="rounded-md border border-zinc-100 bg-zinc-50/75 px-4 py-2 dark:border-zinc-900 dark:bg-zinc-900/75"
+        value="json"
+      >
         <code>
           <pre
             class="whitespace-break-spaces break-all font-mono text-xs font-medium leading-loose"
@@ -109,7 +112,7 @@ const submit = async () => {
         </code>
       </TabsContent>
 
-      <TabsContent
+      <!-- <TabsContent
         class="rounded-md border border-zinc-100 bg-zinc-50/75 px-4 py-2 dark:border-zinc-900 dark:bg-zinc-900/75"
         value="base64_decode"
       >
@@ -119,7 +122,7 @@ const submit = async () => {
             v-html="responseData?.base64_decode ?? `No base64_decode`"
           />
         </code>
-      </TabsContent>
+      </TabsContent> -->
     </Tabs>
   </AppLayout>
 </template>
