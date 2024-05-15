@@ -34,11 +34,8 @@ class DecodeController extends Controller
             return response()->json(['error' => 'No data provided'], Response::HTTP_BAD_REQUEST);
         }
 
-        $isOnlyBase64Encoded = Base64::isBase64Encoded($encodedData) && ! Serialized::isSerialized(Base64::decode($encodedData));
         $isBase64EncodedAndSerialized = Base64::isBase64Encoded($encodedData) && Serialized::isSerialized(Base64::decode($encodedData));
         $isOnlySerialized = ! Base64::isBase64Encoded($encodedData) && Serialized::isSerialized($encodedData);
-
-        $base64Decode = $isOnlyBase64Encoded ? Base64::decode($encodedData) : null;
 
         if ($isBase64EncodedAndSerialized) {
             // Decode the data from Base64, then deserialize
