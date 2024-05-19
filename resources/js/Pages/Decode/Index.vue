@@ -11,6 +11,7 @@ import AppLayout from '@/Layouts/AppLayout.vue'
 
 const form = reactive({
   data: ``,
+  type: `Serial`,
 })
 
 const responseData = ref(null)
@@ -107,7 +108,12 @@ const submit = async () => {
         <code>
           <pre
             class="whitespace-break-spaces break-all font-mono text-xs font-medium leading-loose"
-            v-html="responseData?.json ?? `No json`"
+            v-html="
+              JSON.stringify(responseData?.json, null, 4).replace(
+                /\\n|\\t/g,
+                '',
+              ) ?? `No json`
+            "
           />
         </code>
       </TabsContent>

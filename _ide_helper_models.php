@@ -16,16 +16,27 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property string $uuid
+ * @property int $user_id
+ * @property string $data
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
+ * @property-read mixed $json
+ * @property-read mixed $print_r
+ * @property-read mixed $var_export
  * @property-read \App\Models\User|null $user
  * @method static \Database\Factories\DecodeFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Decode newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Decode newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Decode query()
  * @method static \Illuminate\Database\Eloquent\Builder|Decode whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Decode whereData($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Decode whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Decode whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Decode whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Decode whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Decode whereUuid($value)
  */
 	class Decode extends \Eloquent {}
 }

@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\DecodeType;
-use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('decodes', function (Blueprint $table) {
+        Schema::create('decode_types', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
-            $table->foreignIdFor(User::class);
-            $table->longText('data');
-            $table->foreignIdFor(DecodeType::class);
+            $table->string('name');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -29,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('decodes');
+        Schema::dropIfExists('decode_types');
     }
 };
