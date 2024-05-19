@@ -40,7 +40,7 @@ class DecodeController extends Controller
         }
 
         switch ($request->input('type')) {
-            case DecodeTypeEnum::SERIAL:
+            case DecodeTypeEnum::SERIAL->value:
                 $isBase64EncodedAndSerialized = Base64::isBase64Encoded($encodedData) && Serialized::isSerialized(Base64::decode($encodedData));
                 $isOnlySerialized = ! Base64::isBase64Encoded($encodedData) && Serialized::isSerialized($encodedData);
 
@@ -58,28 +58,33 @@ class DecodeController extends Controller
                     return response()->json(['message' => 'Nothing unserialized.'], Response::HTTP_NO_CONTENT);
                 }
 
+                $decodeTypeId = DecodeType::where('name', DecodeTypeEnum::SERIAL)->first()->id;
+
                 $decode = Decode::create([
                     'user_id' => Auth::id(),
                     'data' => $unserializedData,
-                    'decode_type_id' => DecodeType::where('name', DecodeTypeEnum::SERIAL)->first()->id,
+                    'decode_type_id' => $decodeTypeId,
                 ]);
                 break;
 
-            case DecodeTypeEnum::BASE64:
+            case DecodeTypeEnum::BASE64->value:
                 $decodedData = Base64::isBase64Encoded($request->input('data')) ? Base64::decode($request->input('data')) : null;
+
+                $decodeTypeId = DecodeType::where('name', DecodeTypeEnum::BASE64)->first()->id;
 
                 $decode = Decode::create([
                     'user_id' => Auth::id(),
                     'data' => $decodedData,
-                    'decode_type_id' => DecodeType::where('name', DecodeTypeEnum::BASE64)->first()->id,
+                    'decode_type_id' => $decodeTypeId,
                 ]);
+                break;
 
             default:
                 $decode = null;
                 break;
         }
 
-        return response()->json($decode, Response::HTTP_OK);
+        return response()->json($decode, $decode ? Response::HTTP_OK : Response::HTTP_NO_CONTENT);
     }
 
     /**

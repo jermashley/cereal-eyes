@@ -13,15 +13,18 @@
 
 namespace App\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $uuid
  * @property int $user_id
  * @property string $data
+ * @property int $decode_type_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
+ * @property \App\Models\DecodeType|null $type
+ * @property-read mixed $base64
  * @property-read mixed $json
  * @property-read mixed $print_r
  * @property-read mixed $var_export
@@ -32,6 +35,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Decode query()
  * @method static \Illuminate\Database\Eloquent\Builder|Decode whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Decode whereData($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Decode whereDecodeTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Decode whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Decode whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Decode whereUpdatedAt($value)
@@ -43,7 +47,30 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * 
+ *
+ *
+ * @property int $id
+ * @property string $uuid
+ * @property string $name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Decode> $decodes
+ * @property-read int|null $decodes_count
+ * @method static \Illuminate\Database\Eloquent\Builder|DecodeType newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|DecodeType newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|DecodeType query()
+ * @method static \Illuminate\Database\Eloquent\Builder|DecodeType whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DecodeType whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DecodeType whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DecodeType whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DecodeType whereUuid($value)
+ */
+	class DecodeType extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ *
  *
  * @property int $id
  * @property string $uuid
@@ -84,4 +111,3 @@ namespace App\Models{
  */
 	class User extends \Eloquent {}
 }
-

@@ -20,22 +20,23 @@ class Decode extends Model
     protected $fillable = [
         'user_id',
         'data',
-        'type',
+        'decode_type_id',
     ];
 
-    protected $casts = [
-        'type' => DecodeTypeEnum::class,
+    protected $with = [
+        'type',
     ];
 
     protected $appends = [
         'print_r',
         'var_export',
         'json',
+        'base64',
     ];
 
     public function type(): BelongsTo
     {
-        return $this->belongsTo(DecodeType::class);
+        return $this->belongsTo(DecodeType::class, 'decode_type_id');
     }
 
     public function user(): BelongsTo
@@ -45,17 +46,23 @@ class Decode extends Model
 
     public function getPrintRAttribute()
     {
-        return $this->data ? print_r(Crypt::decrypt($this->data), true) : null;
+        $decodeType = $this->type;
+
+        return $decodeType->name === DecodeTypeEnum::SERIAL->value ? print_r(Crypt::decrypt($this->data), true) : null;
     }
 
     public function getVarExportAttribute()
     {
-        return $this->data ? var_export(Crypt::decrypt($this->data), true) : null;
+        $decodeType = $this->type;
+
+        return $decodeType->name === DecodeTypeEnum::SERIAL->value ? var_export(Crypt::decrypt($this->data), true) : null;
     }
 
     public function getJsonAttribute()
     {
-        if ($this->data) {
+        $decodeType = $this->type;
+
+        if ($decodeType->name === DecodeTypeEnum::SERIAL->value) {
             // Decrypt the data
             $decrypted = Crypt::decrypt($this->data);
 
@@ -69,5 +76,12 @@ class Decode extends Model
         }
 
         return null;
+    }
+
+    public function getBase64Attribute()
+    {
+        $decodeType = $this->type;
+
+        return $decodeType->name === DecodeTypeEnum::BASE64->value ? Crypt::decrypt($this->data) : null;
     }
 }

@@ -7,14 +7,17 @@ import Button from '@/Components/ui/button/Button.vue'
 import Label from '@/Components/ui/label/Label.vue'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/Components/ui/tabs'
 import Textarea from '@/Components/ui/textarea/Textarea.vue'
+import ToggleGroup from '@/Components/ui/toggle-group/ToggleGroup.vue'
+import ToggleGroupItem from '@/Components/ui/toggle-group/ToggleGroupItem.vue'
 import AppLayout from '@/Layouts/AppLayout.vue'
+
+const responseData = ref(null)
+const decodeType = ref(`Serial`)
 
 const form = reactive({
   data: ``,
-  type: `Serial`,
+  type: decodeType,
 })
-
-const responseData = ref(null)
 
 const submit = async () => {
   const { data } = await axios.post(route(`api.decode.store`), form)
@@ -25,6 +28,18 @@ const submit = async () => {
 
 <template>
   <AppLayout>
+    <ToggleGroup
+      v-model="decodeType"
+      type="single"
+      size="lg"
+      default-value="Serial"
+      :model-value="decodeType"
+    >
+      <ToggleGroupItem value="Serial"> Serial </ToggleGroupItem>
+
+      <ToggleGroupItem value="Base64"> Base64 </ToggleGroupItem>
+    </ToggleGroup>
+
     <form class="flex flex-col gap-4" @submit.prevent="submit">
       <Label>Put that dang data down there.</Label>
 
@@ -39,7 +54,7 @@ const submit = async () => {
     </form>
 
     <Tabs
-      v-if="responseData"
+      v-if="responseData && decodeType === `Serial`"
       default-value="print_r"
       class="mx-auto mt-12 w-full"
     >
@@ -129,6 +144,34 @@ const submit = async () => {
           />
         </code>
       </TabsContent> -->
+    </Tabs>
+
+    <Tabs
+      v-if="responseData && decodeType === `Base64`"
+      default-value="print_r"
+      class="mx-auto mt-12 w-full"
+    >
+      <TabsList class="flex w-full flex-row">
+        <TabsTrigger
+          :disabled="!responseData?.base64"
+          class="w-full font-mono font-bold"
+          value="base64"
+        >
+          base64
+        </TabsTrigger>
+      </TabsList>
+
+      <TabsContent
+        class="rounded-md border border-zinc-100 bg-zinc-50/75 px-4 py-2 dark:border-zinc-900 dark:bg-zinc-900/75"
+        value="base64"
+      >
+        <code>
+          <pre
+            class="whitespace-break-spaces break-all font-mono text-xs font-medium leading-loose"
+            v-html="responseData?.base64 ?? `No base64`"
+          />
+        </code>
+      </TabsContent>
     </Tabs>
   </AppLayout>
 </template>
