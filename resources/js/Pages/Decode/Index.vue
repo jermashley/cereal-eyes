@@ -36,22 +36,23 @@ const resetFormAndData = () => {
     <ToggleGroup
       v-model="decodeType"
       type="single"
+      class="mb-16 flex w-full flex-row"
       size="lg"
       default-value="Serial"
       :model-value="decodeType"
       @update:model-value="resetFormAndData"
     >
-      <ToggleGroupItem value="Serial"> Serial </ToggleGroupItem>
+      <ToggleGroupItem class="w-full" value="Serial">Serial</ToggleGroupItem>
 
-      <ToggleGroupItem value="Base64"> Base64 </ToggleGroupItem>
+      <ToggleGroupItem class="w-full" value="Base64">Base64</ToggleGroupItem>
     </ToggleGroup>
 
     <form class="flex flex-col gap-4" @submit.prevent="submit">
-      <Label>Put that dang data down there.</Label>
+      <Label class="text-left">Encoded Data</Label>
 
       <Textarea
         v-model="form.encoded_data"
-        placeholder="Your encoded data."
+        placeholder="V2hvbGUgR3JhaW4gT2F0cywgQ29ybiBTdGFyY2gsIFN1Z2FyLCBTYWx0LCBUcmlwb3Rhc3NpdW0gUGhvc3BoYXRlLiBWaXRhbWluIEUgKG1peGVkIHRvY29waGVyb2xzKSBBZGRlZCB0byBQcmVzZXJ2ZSBGcmVzaG5lc3MuIFZpdGFtaW5zIGFuZCBNaW5lcmFsczogQ2FsY2l1bSBDYXJib25hdGUsIElyb24gYW5kIFppbmMgKG1pbmVyYWwgbnV0cmllbnRzKSwgVml0YW1pbiBDIChzb2RpdW0gYXNjb3JiYXRlKSwgQSBCIFZpdGFtaW4gKG5pYWNpbmFtaWRlKSwgVml0YW1pbiBCNiAocHlyaWRveGluZSBoeWRyb2NobG9yaWRlKSwgVml0YW1pbiBBIChwYWxtaXRhdGUpLCBWaXRhbWluIEIxICh0aGlhbWluIG1vbm9uaXRyYXRlKSwgQSBCIFZpdGFtaW4gKGZvbGljIGFjaWQpLCBWaXRhbWluIEIxMiwgVml0YW1pbiBEMw=="
         name="data"
         rows="8"
       />
