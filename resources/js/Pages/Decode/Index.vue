@@ -57,15 +57,19 @@ const resetFormAndData = () => {
         rows="8"
       />
 
-      <Button size="sm" type="submit">Decode</Button>
+      <div class="flex w-full flex-row items-center justify-center space-x-2">
+        <Button
+          class="w-full"
+          size="sm"
+          variant="outline"
+          type="button"
+          @click="resetFormAndData"
+        >
+          Clear
+        </Button>
 
-      <Button
-        size="sm"
-        variant="outline"
-        type="button"
-        @click="resetFormAndData"
-        >Clear</Button
-      >
+        <Button class="w-full" size="sm" type="submit">Decode</Button>
+      </div>
     </form>
 
     <Tabs
