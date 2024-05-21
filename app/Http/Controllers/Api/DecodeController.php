@@ -32,7 +32,7 @@ class DecodeController extends Controller
     public function store(DecodeRequest $request): JsonResponse
     {
         // Extract the serialized data from the request
-        $encodedData = $request->input('data');
+        $encodedData = $request->input('encoded_data');
 
         // Check if data is actually provided
         if (! $encodedData) {
@@ -68,7 +68,7 @@ class DecodeController extends Controller
                 break;
 
             case DecodeTypeEnum::BASE64->value:
-                $decodedData = Base64::isBase64Encoded($request->input('data')) ? Base64::decode($request->input('data')) : null;
+                $decodedData = Base64::isBase64Encoded($request->input('encoded_data')) ? Base64::decode($request->input('encoded_data')) : null;
 
                 $decodeTypeId = DecodeType::where('name', DecodeTypeEnum::BASE64)->first()->id;
 

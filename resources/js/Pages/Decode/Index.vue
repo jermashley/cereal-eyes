@@ -1,6 +1,6 @@
 <script setup>
+import { useForm } from '@inertiajs/vue3'
 import axios from 'axios'
-import { reactive } from 'vue'
 import { ref } from 'vue'
 
 import Button from '@/Components/ui/button/Button.vue'
@@ -14,8 +14,8 @@ import AppLayout from '@/Layouts/AppLayout.vue'
 const responseData = ref(null)
 const decodeType = ref(`Serial`)
 
-const form = reactive({
-  data: ``,
+const form = useForm({
+  encoded_data: ``,
   type: decodeType,
 })
 
@@ -23,6 +23,11 @@ const submit = async () => {
   const { data } = await axios.post(route(`api.decode.store`), form)
 
   responseData.value = data
+}
+
+const resetFormAndData = () => {
+  form.reset()
+  responseData.value = null
 }
 </script>
 
@@ -34,6 +39,7 @@ const submit = async () => {
       size="lg"
       default-value="Serial"
       :model-value="decodeType"
+      @update:model-value="resetFormAndData"
     >
       <ToggleGroupItem value="Serial"> Serial </ToggleGroupItem>
 
@@ -44,13 +50,21 @@ const submit = async () => {
       <Label>Put that dang data down there.</Label>
 
       <Textarea
-        v-model="form.data"
+        v-model="form.encoded_data"
         placeholder="Your encoded data."
         name="data"
         rows="8"
       />
 
       <Button size="sm" type="submit">Decode</Button>
+
+      <Button
+        size="sm"
+        variant="outline"
+        type="button"
+        @click="resetFormAndData"
+        >Clear</Button
+      >
     </form>
 
     <Tabs

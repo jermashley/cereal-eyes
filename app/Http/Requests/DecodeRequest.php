@@ -22,7 +22,7 @@ class DecodeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'data' => 'required',
+            'encoded_data' => 'required',
             'type' => 'required',
         ];
     }
