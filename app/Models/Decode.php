@@ -23,6 +23,10 @@ class Decode extends Model
         'decode_type_id',
     ];
 
+    protected $hidden = [
+        'data',
+    ];
+
     protected $with = [
         'type',
     ];

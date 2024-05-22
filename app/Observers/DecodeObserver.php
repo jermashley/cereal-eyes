@@ -20,6 +20,6 @@ class DecodeObserver
      */
     public function retrieved(Decode $decode): void
     {
-        $decode->data = Crypt::decrypt($decode->data);
+        // $decode->data = Crypt::decrypt($decode->data);
     }
 }

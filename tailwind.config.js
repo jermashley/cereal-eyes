@@ -22,6 +22,10 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: `figtree, sans-serif`,
+        monospace: `jetbrains-mono, "Courier New"`,
+      },
       colors: {
         border: `hsl(var(--border))`,
         input: `hsl(var(--input))`,

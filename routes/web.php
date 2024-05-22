@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\OAuthController;
+use App\Models\Decode;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,7 +26,11 @@ Route::middleware([
     'auth:sanctum',
 ])->group(function () {
     Route::get('/decode', function () {
-        return Inertia::render('Decode/Index');
+        $decodes = Decode::whereUserId(Auth::id())->orderBy('created_at', 'desc')->get();
+
+        return Inertia::render('Decode/Index', [
+            'decodes' => $decodes,
+        ]);
     })->name('decode.index');
 });
 
