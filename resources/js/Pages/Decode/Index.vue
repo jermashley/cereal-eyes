@@ -62,7 +62,7 @@ dayjs.extend(relativeTime)
     <ToggleGroup
       v-model="decodeType"
       type="single"
-      class="mb-4 flex w-full flex-row"
+      class="mb-12 flex w-full flex-row"
       size="lg"
     >
       <ToggleGroupItem class="text-monospace w-full font-bold" value="Serial">
@@ -74,7 +74,7 @@ dayjs.extend(relativeTime)
       </ToggleGroupItem>
     </ToggleGroup>
 
-    <Sheet>
+    <!-- <Sheet>
       <SheetTrigger class="mb-16 w-full" as-child>
         <Button class="w-full" variant="secondary">Old Decodes</Button>
       </SheetTrigger>
@@ -135,10 +135,10 @@ dayjs.extend(relativeTime)
           <Button size="sm" variant="destructive">Delete all</Button>
         </SheetFooter>
       </SheetContent>
-    </Sheet>
+    </Sheet> -->
 
     <form class="flex flex-col gap-4" @submit.prevent="submit">
-      <Label class="text-left">Encoded Data</Label>
+      <!-- <Label class="text-left">Encoded Data</Label> -->
 
       <Textarea
         v-model="form.encoded_data"
@@ -192,14 +192,6 @@ dayjs.extend(relativeTime)
         >
           json
         </TabsTrigger>
-
-        <!-- <TabsTrigger
-          :disabled="!responseData?.base64_decode"
-          class="w-full font-bold"
-          value="base64_decode"
-        >
-          base64_decode
-        </TabsTrigger> -->
       </TabsList>
 
       <TabsContent
