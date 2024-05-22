@@ -1,8 +1,16 @@
 <script setup>
+import { faSignOut, faUser } from '@fortawesome/pro-duotone-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { usePage } from '@inertiajs/vue3'
 
 import ThemeToggle from '@/Components/feature/theme/ThemeToggle.vue'
 import { Button } from '@/Components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/Components/ui/dropdown-menu'
 import { useLogout } from '@/Composables/Hooks/Auth'
 
 const { user } = usePage().props.auth
@@ -19,10 +27,26 @@ const { logout } = useLogout()
         Cereal Eyes
       </p>
 
-      <div class="flex flex-row items-center justify-end space-x-2">
+      <div class="flex flex-row items-stretch justify-end space-x-4">
         <ThemeToggle />
 
-        <Button v-if="user" size="sm" @click="logout">Logout</Button>
+        <div v-if="user" class="w-px bg-zinc-200 p-0 dark:bg-zinc-800" />
+
+        <DropdownMenu v-if="user">
+          <DropdownMenuTrigger as-child>
+            <Button size="iconSm" variant="outline">
+              <FontAwesomeIcon :icon="faUser" fixed-width />
+            </Button>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent align="end" class="w-56">
+            <DropdownMenuItem @click="logout">
+              <FontAwesomeIcon :icon="faSignOut" fixed-width />
+
+              <span>Log out</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </nav>
   </header>
