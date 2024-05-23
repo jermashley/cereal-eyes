@@ -1,4 +1,6 @@
 <script setup>
+import { VueQueryDevtools } from '@tanstack/vue-query-devtools'
+
 import Navbar from '@/Components/layout/navigation/Navbar.vue'
 </script>
 
@@ -10,4 +12,6 @@ import Navbar from '@/Components/layout/navigation/Navbar.vue'
       <slot></slot>
     </div>
   </div>
+
+  <VueQueryDevtools />
 </template>

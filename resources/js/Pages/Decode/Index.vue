@@ -1,36 +1,31 @@
 <script setup>
-import { faEye, faPencil, faTrashAlt } from '@fortawesome/pro-duotone-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { router, useForm, usePage } from '@inertiajs/vue3'
-import axios from 'axios'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
+import { router, useForm } from '@inertiajs/vue3'
+import { useQueryClient } from '@tanstack/vue-query'
 import { ref } from 'vue'
 import { watch } from 'vue'
 
-import { Badge } from '@/Components/ui/badge'
+import DecodeSheet from '@/Components/feature/decode/DecodeSheet.vue'
 import Button from '@/Components/ui/button/Button.vue'
-import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card'
-import Label from '@/Components/ui/label/Label.vue'
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/Components/ui/sheet'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/Components/ui/tabs'
 import Textarea from '@/Components/ui/textarea/Textarea.vue'
 import ToggleGroup from '@/Components/ui/toggle-group/ToggleGroup.vue'
 import ToggleGroupItem from '@/Components/ui/toggle-group/ToggleGroupItem.vue'
 import { useDecodeType } from '@/Composables/Hooks/DecodeType'
+import { useStoreDecodeMutation } from '@/Composables/Mutations/Decode'
 import AppLayout from '@/Layouts/AppLayout.vue'
 
-const { decodes } = usePage().props
+const queryClient = useQueryClient()
 
-const responseData = ref(null)
+const {
+  mutate: storeDecode,
+  data: decodeResponse,
+  isSuccess,
+  reset,
+} = useStoreDecodeMutation({
+  config: {
+    onSuccess: () => queryClient.invalidateQueries([`decodes`]),
+  },
+})
 
 const { decodeType } = useDecodeType()
 
@@ -41,20 +36,16 @@ const form = useForm({
 
 watch(decodeType, () => (form.type = decodeType.value))
 
-const submit = async () => {
-  await axios.post(route(`api.decode.store`), form).then(({ data }) => {
-    router.reload({ only: [`decodes`] })
-
-    responseData.value = data
+const submit = () => {
+  storeDecode({
+    formData: form,
   })
 }
 
 const resetFormAndData = () => {
   form.reset()
-  responseData.value = null
+  reset()
 }
-
-dayjs.extend(relativeTime)
 </script>
 
 <template>
@@ -74,68 +65,7 @@ dayjs.extend(relativeTime)
       </ToggleGroupItem>
     </ToggleGroup>
 
-    <!-- <Sheet>
-      <SheetTrigger class="mb-16 w-full" as-child>
-        <Button class="w-full" variant="secondary">Old Decodes</Button>
-      </SheetTrigger>
-
-      <SheetContent
-        class="flex w-full max-w-2xl flex-col items-stretch justify-start sm:max-w-md"
-      >
-        <SheetHeader>
-          <SheetTitle>Decodes</SheetTitle>
-        </SheetHeader>
-
-        <div
-          v-if="decodes"
-          class="mt-4 flex flex-grow flex-col space-y-2 overflow-y-auto"
-        >
-          <Card v-for="decode in decodes" :key="decode.uuid">
-            <CardHeader>
-              <CardTitle
-                class="flex flex-row items-center justify-between text-sm font-semibold"
-              >
-                <span>{{ dayjs(decode.created_at).fromNow() }}</span>
-
-                <Badge>{{ decode.type.name }}</Badge>
-              </CardTitle>
-            </CardHeader>
-
-            <CardContent>
-              <div class="flex flex-row items-center justify-start space-x-2">
-                <Button size="iconSm" variant="secondary">
-                  <FontAwesomeIcon :icon="faEye" fixed-width />
-                </Button>
-
-                <Button size="iconSm" variant="secondary">
-                  <FontAwesomeIcon :icon="faPencil" fixed-width />
-                </Button>
-
-                <Button size="iconSm" variant="secondary">
-                  <FontAwesomeIcon :icon="faTrashAlt" fixed-width />
-                </Button>
-
-                <Button size="sm" variant="destructive">Delete</Button>
-
-                <Button size="sm" variant="secondary">Cancel</Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <p v-else class="text-sm text-zinc-600 dark:text-zinc-300">
-          No decodes...yet!
-        </p>
-
-        <SheetFooter>
-          <SheetClose as-child>
-            <Button size="sm" variant="secondary">Close</Button>
-          </SheetClose>
-
-          <Button size="sm" variant="destructive">Delete all</Button>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet> -->
+    <DecodeSheet />
 
     <form class="flex flex-col gap-4" @submit.prevent="submit">
       <!-- <Label class="text-left">Encoded Data</Label> -->
@@ -153,7 +83,7 @@ dayjs.extend(relativeTime)
           size="sm"
           variant="outline"
           type="button"
-          :disabled="!form.encoded_data && !responseData"
+          :disabled="!form.encoded_data && !decodeResponse"
           @click="resetFormAndData"
         >
           Clear
@@ -164,13 +94,13 @@ dayjs.extend(relativeTime)
     </form>
 
     <Tabs
-      v-if="responseData && decodeType === `Serial`"
+      v-if="decodeResponse?.data && isSuccess && decodeType === `Serial`"
       default-value="print_r"
       class="mx-auto mt-12 w-full"
     >
       <TabsList class="flex w-full flex-row">
         <TabsTrigger
-          :disabled="!responseData?.print_r"
+          :disabled="!decodeResponse?.data?.print_r"
           class="w-full font-bold"
           value="print_r"
         >
@@ -178,7 +108,7 @@ dayjs.extend(relativeTime)
         </TabsTrigger>
 
         <TabsTrigger
-          :disabled="!responseData?.var_export"
+          :disabled="!decodeResponse?.data?.var_export"
           class="w-full font-bold"
           value="var_export"
         >
@@ -186,7 +116,7 @@ dayjs.extend(relativeTime)
         </TabsTrigger>
 
         <TabsTrigger
-          :disabled="!responseData?.json"
+          :disabled="!decodeResponse?.data?.json"
           class="w-full font-bold"
           value="json"
         >
@@ -201,7 +131,7 @@ dayjs.extend(relativeTime)
         <code>
           <pre
             class="whitespace-break-spaces break-all text-xs font-medium leading-loose"
-            v-html="responseData?.print_r ?? `No print_r`"
+            v-html="decodeResponse?.data?.print_r ?? `No print_r`"
           />
         </code>
       </TabsContent>
@@ -213,7 +143,7 @@ dayjs.extend(relativeTime)
         <code>
           <pre
             class="whitespace-break-spaces break-all text-xs font-medium leading-loose"
-            v-html="responseData?.var_export ?? `No var_export`"
+            v-html="decodeResponse?.data?.var_export ?? `No var_export`"
           />
         </code>
       </TabsContent>
@@ -226,7 +156,7 @@ dayjs.extend(relativeTime)
           <pre
             class="whitespace-break-spaces break-all text-xs font-medium leading-loose"
             v-html="
-              JSON.stringify(responseData?.json, null, 4).replace(
+              JSON.stringify(decodeResponse?.data?.json, null, 4).replace(
                 /\\n|\\t/g,
                 '',
               ) ?? `No json`
@@ -242,20 +172,20 @@ dayjs.extend(relativeTime)
         <code>
           <pre
             class="whitespace-break-spaces break-all text-xs font-medium leading-loose"
-            v-html="responseData?.base64_decode ?? `No base64_decode`"
+            v-html="decodeResponse?.base64_decode ?? `No base64_decode`"
           />
         </code>
       </TabsContent> -->
     </Tabs>
 
     <Tabs
-      v-if="responseData && decodeType === `Base64`"
+      v-if="decodeResponse && isSuccess && decodeType === `Base64`"
       default-value="base64"
       class="mx-auto mt-12 w-full"
     >
       <TabsList class="flex w-full flex-row">
         <TabsTrigger
-          :disabled="!responseData?.base64"
+          :disabled="!decodeResponse?.data?.base64"
           class="w-full font-bold"
           value="base64"
         >
@@ -271,13 +201,13 @@ dayjs.extend(relativeTime)
           <pre
             class="whitespace-break-spaces break-all text-xs font-medium leading-loose"
             v-html="
-              !!JSON.parse(responseData?.base64)
+              !!JSON.parse(decodeResponse?.data?.base64)
                 ? JSON.stringify(
-                    JSON.parse(responseData?.base64),
+                    JSON.parse(decodeResponse?.data?.base64),
                     null,
                     4,
                   ).replace(/\\n|\\t/g, '')
-                : responseData?.base64
+                : decodeResponse?.data?.base64
             "
           />
         </code>

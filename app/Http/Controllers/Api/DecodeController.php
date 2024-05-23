@@ -19,9 +19,9 @@ class DecodeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        $decodes = Decode::whereUserId(Auth::id())->get();
+        $decodes = Decode::whereUserId(Auth::id())->with(['type'])->get();
 
         return response()->json($decodes, Response::HTTP_OK);
     }

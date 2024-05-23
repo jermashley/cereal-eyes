@@ -28,9 +28,7 @@ Route::middleware([
     Route::get('/decode', function () {
         $decodes = Decode::whereUserId(Auth::id())->orderBy('created_at', 'desc')->get();
 
-        return Inertia::render('Decode/Index', [
-            'decodes' => $decodes,
-        ]);
+        return Inertia::render('Decode/Index');
     })->name('decode.index');
 });
 
