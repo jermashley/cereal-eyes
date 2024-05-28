@@ -6,6 +6,7 @@ import { watch } from 'vue'
 import DecodeSheet from '@/Components/feature/decode/DecodeSheet.vue'
 import DecodeTabs from '@/Components/feature/decode/DecodeTabs.vue'
 import { Button } from '@/Components/ui/button'
+import { Label } from '@/Components/ui/label'
 import { Textarea } from '@/Components/ui/textarea'
 import { ToggleGroup, ToggleGroupItem } from '@/Components/ui/toggle-group'
 import { useDecodeType } from '@/Composables/Hooks/DecodeType'
@@ -50,22 +51,28 @@ const resetFormAndData = () => {
 
 <template>
   <AppLayout>
-    <ToggleGroup
-      v-model="decodeType"
-      type="single"
-      class="mb-12 flex w-full flex-row"
-      size="lg"
-    >
-      <ToggleGroupItem class="text-monospace w-full font-bold" value="Serial">
-        Serial
-      </ToggleGroupItem>
-
-      <ToggleGroupItem class="text-monospace w-full font-bold" value="Base64">
-        Base64
-      </ToggleGroupItem>
-    </ToggleGroup>
-
     <DecodeSheet />
+
+    <div
+      class="mb-4 flex flex-row items-center justify-between rounded-lg bg-zinc-50/50 px-4 py-2 outline outline-zinc-300/50 dark:bg-zinc-900/50 dark:outline-zinc-700/50"
+    >
+      <Label class="text-base font-semibold">Decode Type</Label>
+
+      <ToggleGroup
+        v-model="decodeType"
+        type="single"
+        size="lg"
+        default-value="Serial"
+      >
+        <ToggleGroupItem class="text-monospace font-bold" value="Serial">
+          Serial
+        </ToggleGroupItem>
+
+        <ToggleGroupItem class="text-monospace font-bold" value="Base64">
+          Base64
+        </ToggleGroupItem>
+      </ToggleGroup>
+    </div>
 
     <form class="flex flex-col gap-4" @submit.prevent="submit">
       <Textarea
