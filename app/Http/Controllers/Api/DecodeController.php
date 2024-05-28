@@ -21,7 +21,9 @@ class DecodeController extends Controller
      */
     public function index(): JsonResponse
     {
-        $decodes = Decode::whereUserId(Auth::id())->with(['type'])->get();
+        $decodes = Decode::whereUserId(Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return response()->json($decodes, Response::HTTP_OK);
     }
@@ -84,7 +86,7 @@ class DecodeController extends Controller
                 break;
         }
 
-        return response()->json($decode, $decode ? Response::HTTP_OK : Response::HTTP_NO_CONTENT);
+        return response()->json($decode->id, $decode ? Response::HTTP_OK : Response::HTTP_NO_CONTENT);
     }
 
     /**
@@ -92,7 +94,7 @@ class DecodeController extends Controller
      */
     public function show(Decode $decode)
     {
-        //
+        return response()->json($decode, Response::HTTP_OK);
     }
 
     /**
@@ -109,5 +111,15 @@ class DecodeController extends Controller
     public function destroy(Decode $decode)
     {
         //
+    }
+
+    /**
+     * Remove all resources for the authenticated user.
+     */
+    public function destroyAll()
+    {
+        Auth::user()->decodes()->forceDelete();
+
+        return response()->json(null, Response::HTTP_OK);
     }
 }

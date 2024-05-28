@@ -1,1 +1,2 @@
-export { useDecodesQuery } from './useDecodesQuery'
+export { useGetDecodeQuery } from './useGetDecodeQuery'
+export { useGetDecodesQuery } from './useGetDecodesQuery'

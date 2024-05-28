@@ -11,5 +11,6 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::middleware(['auth:sanctum'])
     ->as('api.')
     ->group(function () {
+        Route::delete('decode/all', [DecodeController::class, 'destroyAll'])->name('decode.destroyAll');
         Route::apiResource('decode', DecodeController::class);
     });
