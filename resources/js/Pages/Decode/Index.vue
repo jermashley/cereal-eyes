@@ -50,7 +50,6 @@ const resetFormAndData = () => {
 
 <template>
   <AppLayout>
-    hi
     <ToggleGroup
       v-model="decodeType"
       type="single"
