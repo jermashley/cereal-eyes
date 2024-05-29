@@ -1,20 +1,19 @@
 <script setup>
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/Components/ui/tabs'
-import { useDecodeType } from '@/Composables/Hooks/DecodeType'
 import { useGetDecodeQuery } from '@/Composables/Queries/Decode'
 
 const props = defineProps({
   decodeId: { type: Number, required: true },
 })
 
-const { decodeType } = useDecodeType()
-
-const { data: decode, isSuccess } = useGetDecodeQuery({ id: props.decodeId })
+const { data: decode, isSuccess } = useGetDecodeQuery({
+  id: props.decodeId,
+})
 </script>
 
 <template>
   <Tabs
-    v-if="decode && isSuccess && decodeType === `Serial`"
+    v-if="decode && isSuccess && decode?.type?.name === `Serial`"
     default-value="print_r"
     class="mx-auto mt-12 w-full"
   >
@@ -97,7 +96,7 @@ const { data: decode, isSuccess } = useGetDecodeQuery({ id: props.decodeId })
   </Tabs>
 
   <Tabs
-    v-if="decode && isSuccess && decodeType === `Base64`"
+    v-if="decode && isSuccess && decode?.type?.name === `Base64`"
     default-value="base64"
     class="mx-auto mt-12 w-full"
   >
@@ -118,14 +117,7 @@ const { data: decode, isSuccess } = useGetDecodeQuery({ id: props.decodeId })
       <code>
         <pre
           class="whitespace-break-spaces break-all text-xs font-medium leading-loose"
-          v-html="
-            !!JSON.parse(decode?.base64)
-              ? JSON.stringify(JSON.parse(decode?.base64), null, 4).replace(
-                  /\\n|\\t/g,
-                  '',
-                )
-              : decodeResponse?.base64
-          "
+          v-html="decode?.base64"
         />
       </code>
     </TabsContent>

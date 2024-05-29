@@ -9,7 +9,7 @@ const destroyAllDecodes = async () => {
 
 export const useDestroyAllDecodeMutation = ({ config = {} } = {}) =>
   useMutation({
-    mutationKey: [`decode`, `store`],
+    mutationKey: [`decodes`, `destroy`, `all`],
     mutationFn: () => destroyAllDecodes(),
 
     ...config,

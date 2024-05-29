@@ -1,5 +1,5 @@
 <script setup>
-import { faEye, faPencil, faTrashAlt } from '@fortawesome/pro-duotone-svg-icons'
+import { faEye } from '@fortawesome/pro-duotone-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useQueryClient } from '@tanstack/vue-query'
 import dayjs from 'dayjs'
@@ -7,7 +7,7 @@ import localizedFormat from 'dayjs/plugin/LocalizedFormat'
 
 import { Badge } from '@/Components/ui/badge'
 import { Button } from '@/Components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card'
+import { Card, CardContent } from '@/Components/ui/card'
 import {
   Sheet,
   SheetClose,
@@ -20,9 +20,13 @@ import {
 import { useDestroyAllDecodeMutation } from '@/Composables/Mutations/Decode'
 import { useGetDecodesQuery } from '@/Composables/Queries/Decode'
 
+import DestroyDecode from './DestroyDecode.vue'
+import ShowDecode from './ShowDecode.vue'
+
 const queryClient = useQueryClient()
 
 const { data: decodes, isSuccess } = useGetDecodesQuery()
+
 const { mutate: destroyAllDecodes } = useDestroyAllDecodeMutation({
   config: {
     onSuccess: () => queryClient.invalidateQueries([`decodes`]),
@@ -47,36 +51,28 @@ dayjs.extend(localizedFormat)
 
       <div
         v-if="decodes.length >= 1 && isSuccess"
-        class="mt-4 flex flex-grow flex-col space-y-2 overflow-y-auto"
+        class="mt-4 flex flex-grow flex-col space-y-4 overflow-y-auto"
       >
-        <Card v-for="decode in decodes" :key="decode.uuid">
-          <CardHeader>
-            <CardTitle
-              class="flex flex-row items-center justify-between text-sm font-semibold"
-            >
-              <span>{{ dayjs(decode?.created_at).format(`LLL`) }}</span>
+        <Card v-for="decode in decodes" :key="decode.uuid" class="group">
+          <CardContent class="px-4 py-2">
+            <div class="grid grid-cols-12 grid-rows-2 gap-x-2 gap-y-1">
+              <div class="col-start-1 col-end-10 row-start-1 row-end-2">
+                <span class="text-xs">
+                  {{ dayjs(decode?.created_at).format(`LLL`) }}
+                </span>
+              </div>
 
-              <Badge>{{ decode?.type?.name }}</Badge>
-            </CardTitle>
-          </CardHeader>
+              <div
+                class="col-start-10 col-end-13 row-start-1 row-end-3 flex flex-row content-center items-center justify-end space-x-2 justify-self-end opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+              >
+                <DestroyDecode :id="decode.id" />
 
-          <CardContent>
-            <div class="flex flex-row items-center justify-start space-x-2">
-              <Button size="iconSm" variant="secondary">
-                <FontAwesomeIcon :icon="faEye" fixed-width />
-              </Button>
+                <ShowDecode :id="decode.id" />
+              </div>
 
-              <!-- <Button size="iconSm" variant="secondary">
-                <FontAwesomeIcon :icon="faPencil" fixed-width />
-              </Button> -->
-
-              <!-- <Button size="iconSm" variant="secondary">
-                <FontAwesomeIcon :icon="faTrashAlt" fixed-width />
-              </Button> -->
-
-              <!-- <Button size="sm" variant="destructive">Delete</Button> -->
-
-              <!-- <Button size="sm" variant="secondary">Cancel</Button> -->
+              <div class="col-start-1 col-end-10 row-start-2 row-end-3">
+                <Badge variant="secondary">{{ decode?.type?.name }}</Badge>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -91,7 +87,7 @@ dayjs.extend(localizedFormat)
         </p>
       </div>
 
-      <SheetFooter>
+      <!-- <SheetFooter>
         <SheetClose as-child>
           <Button size="sm" variant="secondary">Close</Button>
         </SheetClose>
@@ -99,7 +95,7 @@ dayjs.extend(localizedFormat)
         <Button size="sm" variant="destructive" @click="destroyAllDecodes">
           Delete all
         </Button>
-      </SheetFooter>
+      </SheetFooter> -->
     </SheetContent>
   </Sheet>
 </template>

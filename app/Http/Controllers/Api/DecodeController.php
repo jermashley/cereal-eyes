@@ -108,15 +108,17 @@ class DecodeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Decode $decode)
+    public function destroy(Decode $decode): JsonResponse
     {
-        //
+        $decode->forceDelete();
+
+        return response()->json(null, Response::HTTP_OK);
     }
 
     /**
      * Remove all resources for the authenticated user.
      */
-    public function destroyAll()
+    public function destroyAll(): JsonResponse
     {
         Auth::user()->decodes()->forceDelete();
 

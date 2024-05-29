@@ -94,7 +94,14 @@ const resetFormAndData = () => {
           Clear
         </Button>
 
-        <Button class="w-full" size="sm" type="submit">Decode</Button>
+        <Button
+          class="w-full"
+          size="sm"
+          type="submit"
+          :disabled="!form.encoded_data"
+        >
+          Decode
+        </Button>
       </div>
     </form>
 
