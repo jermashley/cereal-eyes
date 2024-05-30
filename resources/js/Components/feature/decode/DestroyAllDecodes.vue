@@ -17,10 +17,13 @@ import {
 } from '@/Components/ui/alert-dialog'
 import { Button } from '@/Components/ui/button'
 import { useDestroyAllDecodeMutation } from '@/Composables/Mutations/Decode'
+import { useGetDecodesQuery } from '@/Composables/Queries/Decode'
 
 const alertIsOpen = ref(false)
 
 const queryClient = useQueryClient()
+
+const { data: decodes } = useGetDecodesQuery()
 
 const { mutate: destroy } = useDestroyAllDecodeMutation({
   config: {
@@ -35,7 +38,12 @@ const { mutate: destroy } = useDestroyAllDecodeMutation({
 <template>
   <AlertDialog v-model:open="alertIsOpen">
     <AlertDialogTrigger as-child>
-      <Button class="w-full" size="sm" variant="destructive">
+      <Button
+        :disabled="decodes.length === 0"
+        class="w-full"
+        size="sm"
+        variant="destructive"
+      >
         <FontAwesomeIcon class="mr-2" :icon="faTrashAlt" fixed-width />
 
         <span>Delete All</span>
