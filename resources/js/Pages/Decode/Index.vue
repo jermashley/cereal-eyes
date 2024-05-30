@@ -1,4 +1,6 @@
 <script setup>
+import { faClockRotateLeft } from '@fortawesome/pro-duotone-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useForm } from '@inertiajs/vue3'
 import { useQueryClient } from '@tanstack/vue-query'
 import { watch } from 'vue'
@@ -52,27 +54,33 @@ const resetFormAndData = () => {
 
 <template>
   <AppLayout>
-    <DecodeSheet />
-
-    <div
-      class="mb-4 flex flex-row items-center justify-between rounded-lg bg-zinc-50/50 px-4 py-2 outline outline-zinc-300/50 dark:bg-zinc-900/50 dark:outline-zinc-700/50"
-    >
-      <Label class="text-base font-semibold">Decode Type</Label>
-
-      <ToggleGroup
-        v-model="decodeType"
-        type="single"
-        size="lg"
-        default-value="Serial"
+    <div class="mb-4 flex flex-row items-center justify-start space-x-2">
+      <div
+        class="flex grow flex-row items-center justify-between rounded-lg bg-zinc-50/50 py-2 pl-4 pr-2 outline outline-zinc-300/50 dark:bg-zinc-900/50 dark:outline-zinc-700/50"
       >
-        <ToggleGroupItem class="text-monospace font-bold" value="Serial">
-          Serial
-        </ToggleGroupItem>
+        <Label class="text-base font-semibold">Decode Type</Label>
 
-        <ToggleGroupItem class="text-monospace font-bold" value="Base64">
-          Base64
-        </ToggleGroupItem>
-      </ToggleGroup>
+        <ToggleGroup
+          v-model="decodeType"
+          type="single"
+          size="lg"
+          default-value="Serial"
+        >
+          <ToggleGroupItem class="text-monospace font-bold" value="Serial">
+            Serial
+          </ToggleGroupItem>
+
+          <ToggleGroupItem class="text-monospace font-bold" value="Base64">
+            Base64
+          </ToggleGroupItem>
+        </ToggleGroup>
+      </div>
+
+      <div
+        class="rounded-lg bg-zinc-50/50 px-2 py-2 outline outline-zinc-300/50 dark:bg-zinc-900/50 dark:outline-zinc-700/50"
+      >
+        <DecodeSheet />
+      </div>
     </div>
 
     <form class="flex flex-col gap-4" @submit.prevent="submit">

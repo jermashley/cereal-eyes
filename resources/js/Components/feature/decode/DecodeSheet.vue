@@ -1,7 +1,6 @@
 <script setup>
-import { faEye } from '@fortawesome/pro-duotone-svg-icons'
+import { faClockRotateLeft } from '@fortawesome/pro-duotone-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { useQueryClient } from '@tanstack/vue-query'
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/LocalizedFormat'
 
@@ -10,36 +9,31 @@ import { Button } from '@/Components/ui/button'
 import { Card, CardContent } from '@/Components/ui/card'
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from '@/Components/ui/sheet'
-import { useDestroyAllDecodeMutation } from '@/Composables/Mutations/Decode'
 import { useGetDecodesQuery } from '@/Composables/Queries/Decode'
 
+import DestroyAllDecodes from './DestroyAllDecodes.vue'
 import DestroyDecode from './DestroyDecode.vue'
 import ShowDecode from './ShowDecode.vue'
 
-const queryClient = useQueryClient()
-
 const { data: decodes, isSuccess } = useGetDecodesQuery()
-
-const { mutate: destroyAllDecodes } = useDestroyAllDecodeMutation({
-  config: {
-    onSuccess: () => queryClient.invalidateQueries([`decodes`]),
-  },
-})
 
 dayjs.extend(localizedFormat)
 </script>
 
 <template>
   <Sheet>
-    <SheetTrigger class="mb-16 w-full" as-child>
-      <Button class="w-full" variant="secondary">Old Decodes</Button>
+    <SheetTrigger as-child>
+      <Button size="lg" variant="ghost">
+        <FontAwesomeIcon class="mr-2" :icon="faClockRotateLeft" fixed-width />
+
+        <span>History</span>
+      </Button>
     </SheetTrigger>
 
     <SheetContent
@@ -87,15 +81,9 @@ dayjs.extend(localizedFormat)
         </p>
       </div>
 
-      <!-- <SheetFooter>
-        <SheetClose as-child>
-          <Button size="sm" variant="secondary">Close</Button>
-        </SheetClose>
-
-        <Button size="sm" variant="destructive" @click="destroyAllDecodes">
-          Delete all
-        </Button>
-      </SheetFooter> -->
+      <SheetFooter>
+        <DestroyAllDecodes />
+      </SheetFooter>
     </SheetContent>
   </Sheet>
 </template>
