@@ -76,11 +76,11 @@ const resetFormAndData = () => {
         </ToggleGroup>
       </div>
 
-      <div
+      <!-- <div
         class="rounded-lg bg-zinc-50/50 px-2 py-2 outline outline-zinc-300/50 dark:bg-zinc-900/50 dark:outline-zinc-700/50"
       >
         <DecodeSheet />
-      </div>
+      </div> -->
     </div>
 
     <form class="flex flex-col gap-4" @submit.prevent="submit">

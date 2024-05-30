@@ -2,6 +2,7 @@
 import { faClockRotateLeft } from '@fortawesome/pro-duotone-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import dayjs from 'dayjs'
+import localizedFormat from 'dayjs/plugin/LocalizedFormat'
 
 import { Badge } from '@/Components/ui/badge'
 import { Button } from '@/Components/ui/button'
@@ -19,8 +20,6 @@ import { useGetDecodesQuery } from '@/Composables/Queries/Decode'
 import DestroyAllDecodes from './DestroyAllDecodes.vue'
 import DestroyDecode from './DestroyDecode.vue'
 import ShowDecode from './ShowDecode.vue'
-
-const localizedFormat = require(`dayjs/plugin/localizedFormat`)
 
 const { data: decodes, isSuccess } = useGetDecodesQuery()
 
