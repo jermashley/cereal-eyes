@@ -2,7 +2,7 @@
 import { faClockRotateLeft } from '@fortawesome/pro-duotone-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import dayjs from 'dayjs'
-import localizedFormat from 'dayjs/plugin/LocalizedFormat'
+import { localizedFormat } from 'dayjs/plugin/LocalizedFormat'
 
 import { Badge } from '@/Components/ui/badge'
 import { Button } from '@/Components/ui/button'
