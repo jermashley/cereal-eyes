@@ -26,12 +26,12 @@ const props = defineProps({
       </Button>
     </DialogTrigger>
 
-    <DialogContent class="max-w-2xl sm:max-w-lg">
-      <DialogHeader>
+    <DialogContent class="w-full max-w-xl sm:max-w-3xl">
+      <DialogHeader class="sticky top-0">
         <DialogTitle>View Decode</DialogTitle>
       </DialogHeader>
 
-      <DecodeTabs v-if="props.id" :id="props.id" />
+      <DecodeTabs v-if="id" :id="id" />
     </DialogContent>
   </Dialog>
 </template>

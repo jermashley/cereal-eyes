@@ -7,6 +7,7 @@ import DecodeSheet from '@/Components/feature/decode/DecodeSheet.vue'
 import DecodeTabs from '@/Components/feature/decode/DecodeTabs.vue'
 import { Button } from '@/Components/ui/button'
 import { Label } from '@/Components/ui/label'
+import { Separator } from '@/Components/ui/separator'
 import { Textarea } from '@/Components/ui/textarea'
 import { ToggleGroup, ToggleGroupItem } from '@/Components/ui/toggle-group'
 import { useDecodeType } from '@/Composables/Hooks/DecodeType'
@@ -105,9 +106,11 @@ const resetFormAndData = () => {
       </div>
     </form>
 
+    <Separator v-if="decodeResponse?.data && isSuccess" class="my-8" />
+
     <DecodeTabs
       v-if="decodeResponse?.data && isSuccess"
-      :decode-id="decodeResponse?.data"
+      :id="decodeResponse?.data"
     />
   </AppLayout>
 </template>

@@ -1,4 +1,6 @@
 <script setup>
+import { faTimes } from '@fortawesome/pro-duotone-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { X } from 'lucide-vue-next'
 import {
   DialogClose,
@@ -56,7 +58,12 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
       <DialogClose
         class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
       >
-        <X class="h-4 w-4" />
+        <FontAwesomeIcon
+          class="h-4 w-4 text-muted-foreground"
+          :icon="faTimes"
+          fixed-width
+        />
+
         <span class="sr-only">Close</span>
       </DialogClose>
     </DialogContent>

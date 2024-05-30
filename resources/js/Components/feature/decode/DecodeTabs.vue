@@ -1,21 +1,27 @@
 <script setup>
+import { faCopy } from '@fortawesome/pro-duotone-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { useClipboard } from '@vueuse/core'
+
+import { Button } from '@/Components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/Components/ui/tabs'
 import { useGetDecodeQuery } from '@/Composables/Queries/Decode'
 
 const props = defineProps({
-  decodeId: { type: Number, required: true },
+  id: { type: Number, required: true },
 })
 
 const { data: decode, isSuccess } = useGetDecodeQuery({
-  id: props.decodeId,
+  id: props.id,
 })
+
+const { isSupported, copy } = useClipboard()
 </script>
 
 <template>
   <Tabs
     v-if="decode && isSuccess && decode?.type?.name === `Serial`"
     default-value="print_r"
-    class="mx-auto mt-12 w-full"
   >
     <TabsList class="flex w-full flex-row">
       <TabsTrigger
@@ -44,9 +50,23 @@ const { data: decode, isSuccess } = useGetDecodeQuery({
     </TabsList>
 
     <TabsContent
-      class="rounded-md border border-zinc-100 bg-zinc-50/75 px-4 py-2 dark:border-zinc-900 dark:bg-zinc-900/75"
+      class="relative max-h-[calc(100vh-16rem)] overflow-y-auto rounded-md border border-zinc-100 bg-zinc-50/75 px-4 py-2 dark:border-zinc-900 dark:bg-zinc-900/75"
       value="print_r"
     >
+      <div
+        class="sticky left-0 right-0 top-0 flex w-full flex-row justify-end rounded-md"
+      >
+        <Button
+          v-if="decode?.print_r"
+          variant="secondary"
+          size="iconSm"
+          :disabled="!isSupported"
+          @click="copy(decode?.print_r)"
+        >
+          <FontAwesomeIcon :icon="faCopy" fixed-width />
+        </Button>
+      </div>
+
       <code>
         <pre
           class="whitespace-break-spaces break-all text-xs font-medium leading-loose"
@@ -56,9 +76,23 @@ const { data: decode, isSuccess } = useGetDecodeQuery({
     </TabsContent>
 
     <TabsContent
-      class="rounded-md border border-zinc-100 bg-zinc-50/75 px-4 py-2 dark:border-zinc-900 dark:bg-zinc-900/75"
+      class="max-h-[calc(100vh-16rem)] overflow-y-auto rounded-md border border-zinc-100 bg-zinc-50/75 px-4 py-2 dark:border-zinc-900 dark:bg-zinc-900/75"
       value="var_export"
     >
+      <div
+        class="sticky left-0 right-0 top-0 flex w-full flex-row justify-end rounded-md"
+      >
+        <Button
+          v-if="decode?.var_export"
+          variant="secondary"
+          size="iconSm"
+          :disabled="!isSupported"
+          @click="copy(decode?.var_export)"
+        >
+          <FontAwesomeIcon :icon="faCopy" fixed-width />
+        </Button>
+      </div>
+
       <code>
         <pre
           class="whitespace-break-spaces break-all text-xs font-medium leading-loose"
@@ -68,9 +102,23 @@ const { data: decode, isSuccess } = useGetDecodeQuery({
     </TabsContent>
 
     <TabsContent
-      class="rounded-md border border-zinc-100 bg-zinc-50/75 px-4 py-2 dark:border-zinc-900 dark:bg-zinc-900/75"
+      class="max-h-[calc(100vh-16rem)] overflow-y-auto rounded-md border border-zinc-100 bg-zinc-50/75 px-4 py-2 dark:border-zinc-900 dark:bg-zinc-900/75"
       value="json"
     >
+      <div
+        class="sticky left-0 right-0 top-0 flex w-full flex-row justify-end rounded-md"
+      >
+        <Button
+          v-if="decode?.json"
+          variant="secondary"
+          size="iconSm"
+          :disabled="!isSupported"
+          @click="copy(decode?.json)"
+        >
+          <FontAwesomeIcon :icon="faCopy" fixed-width />
+        </Button>
+      </div>
+
       <code>
         <pre
           class="whitespace-break-spaces break-all text-xs font-medium leading-loose"
@@ -81,24 +129,12 @@ const { data: decode, isSuccess } = useGetDecodeQuery({
         />
       </code>
     </TabsContent>
-
-    <!-- <TabsContent
-      class="rounded-md border border-zinc-100 bg-zinc-50/75 px-4 py-2 dark:border-zinc-900 dark:bg-zinc-900/75"
-      value="base64_decode"
-    >
-      <code>
-        <pre
-          class="whitespace-break-spaces break-all text-xs font-medium leading-loose"
-          v-html="decode?.base64_decode ?? `No base64_decode`"
-        />
-      </code>
-    </TabsContent> -->
   </Tabs>
 
   <Tabs
     v-if="decode && isSuccess && decode?.type?.name === `Base64`"
     default-value="base64"
-    class="mx-auto mt-12 w-full"
+    class="mx-auto w-full"
   >
     <TabsList class="flex w-full flex-row">
       <TabsTrigger
@@ -111,9 +147,23 @@ const { data: decode, isSuccess } = useGetDecodeQuery({
     </TabsList>
 
     <TabsContent
-      class="rounded-md border border-zinc-100 bg-zinc-50/75 px-4 py-2 dark:border-zinc-900 dark:bg-zinc-900/75"
+      class="max-h-[calc(100vh-16rem)] overflow-y-auto rounded-md border border-zinc-100 bg-zinc-50/75 px-4 py-2 dark:border-zinc-900 dark:bg-zinc-900/75"
       value="base64"
     >
+      <div
+        class="sticky left-0 right-0 top-0 flex w-full flex-row justify-end rounded-md"
+      >
+        <Button
+          v-if="decode?.base64"
+          variant="secondary"
+          size="iconSm"
+          :disabled="!isSupported"
+          @click="copy(decode?.base64)"
+        >
+          <FontAwesomeIcon :icon="faCopy" fixed-width />
+        </Button>
+      </div>
+
       <code>
         <pre
           class="whitespace-break-spaces break-all text-xs font-medium leading-loose"
