@@ -2,8 +2,8 @@
 import { faClockRotateLeft } from '@fortawesome/pro-duotone-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import dayjs from 'dayjs'
-import localizedFormat from 'dayjs/plugin/LocalizedFormat'
 
+// import localizedFormat from 'dayjs/plugin/LocalizedFormat'
 import { Badge } from '@/Components/ui/badge'
 import { Button } from '@/Components/ui/button'
 import { Card, CardContent } from '@/Components/ui/card'
@@ -23,7 +23,7 @@ import ShowDecode from './ShowDecode.vue'
 
 const { data: decodes, isSuccess } = useGetDecodesQuery()
 
-dayjs.extend(localizedFormat)
+// dayjs.extend(localizedFormat)
 </script>
 
 <template>
@@ -52,7 +52,7 @@ dayjs.extend(localizedFormat)
             <div class="grid grid-cols-12 grid-rows-2 gap-x-2 gap-y-1">
               <div class="col-start-1 col-end-10 row-start-1 row-end-2">
                 <span class="text-xs">
-                  {{ dayjs(decode?.created_at).format(`LLL`) }}
+                  <!-- {{ dayjs(decode?.created_at).format(`LLL`) }} -->
                 </span>
               </div>
 
